@@ -5,6 +5,13 @@ public class Sniper extends Shooters { //снайпер, наследник кл
         super(name);
         this.accuracy=15;
     }
+    @Override
+    public String getInfo() {
+        return "Sniper";
+    }
+    @Override
+    public void step(){}
 }
+
 
 

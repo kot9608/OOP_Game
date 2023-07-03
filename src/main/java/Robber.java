@@ -5,4 +5,10 @@ public class Robber extends Infantrys{//класс разбойник, насл�
         super(name);
         this.danger=10;
     }
+    @Override
+    public String getInfo() {
+        return "Robber";
+    }
+    @Override
+    public void step(){}
 }

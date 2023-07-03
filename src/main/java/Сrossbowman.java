@@ -6,4 +6,11 @@ public class Сrossbowman extends Shooters {//арбалетчик, наслед
         this.accuracy=10;
 
     }
+    @Override
+    public String getInfo() {
+        return "Сrossbowman";
+    }
+    @Override
+    public void step(){}
 }
+

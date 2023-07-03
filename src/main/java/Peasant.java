@@ -4,4 +4,10 @@ public class Peasant extends Infantrys  {//класс крестьянин, на
         super(name);//вызывает главный конструктор родительского класса со строкой, которую получил на входе
         this.industriousness=10;
     }
+    @Override
+    public String getInfo() {
+        return "Peasant";
+    }
+    @Override
+    public void step(){}
 }

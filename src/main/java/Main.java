@@ -21,6 +21,7 @@ public class Main {
         System.out.println(koldun.manaMaxSize);
         Сrossbowman arbaletchik = new Сrossbowman("Arbaletchik");
         System.out.println(arbaletchik.name);
+        System.out.println(arbaletchik.getInfo());
     }
 
 }
