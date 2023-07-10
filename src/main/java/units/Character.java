@@ -1,25 +1,27 @@
 package units;
 
+import map.Coordinates;
 import java.util.ArrayList;
 
-public abstract class Character implements CharacterInterface {//абстрактный класс, используется без методов(поведения). Служит для обобщения какой-то группы классов по общим параметрам //нельзя создавать экземпляры абстрактного класса
-    protected String name;//имя персонажа
-    protected int hp;//очки здоровья
-    protected int maxHp;//максимальное количество очков здоровья
-    protected int defense;//защита
+public abstract class Character implements CharacterInterface {
+    protected String name;
+    protected int hp;
+    protected int maxHp;
+    protected int damage;
+    protected int defense;
+    protected int initiative;
+    protected int speed;
     protected Coordinates position;
 
-
-    public Character(String name, int hp, int maxHp, int defense, int x, int y) {
+    public Character(String name, int hp, int maxHp, int damage, int defense, int initiative, int speed, int x, int y) {
         this.name = name;
         this.hp = hp;
         this.maxHp = maxHp;
+        this.damage = damage;
         this.defense = defense;
-        this.position = new Coordinates(x,y);
-    }
-
-    public String myTypeIs(){
-        return "Personage";
+        this.initiative = initiative;
+        this.speed = speed;
+        this.position = new Coordinates(x, y);
     }
 
     public Coordinates getCoordinates() {
@@ -36,7 +38,8 @@ public abstract class Character implements CharacterInterface {//абстрак�
         return nearest;
     }
 
-
+    public String getInfo() {
+        return String.format("%s: hp=%d", this.name, this.hp);
+    }
+    public int getInitiative() {return this.initiative;}
 }
-
-

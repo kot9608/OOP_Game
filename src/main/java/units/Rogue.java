@@ -2,8 +2,8 @@ package units;
 
 import java.util.ArrayList;
 
-public class Spearman extends Warrior{
-    public Spearman(String name, int x, int y) {
+public class Rogue extends Warrior{
+    public Rogue(String name, int x, int y) {
         super(name, x, y);
     }
 
