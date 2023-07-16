@@ -11,40 +11,42 @@ public abstract class Character implements CharacterInterface {
     protected int damage;
     protected int defense;
     protected int initiative;
-    protected int speed;
     protected Coordinates position;
     protected States state;
 
-    public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int speed, int x, int y) {
+    public Character(Names name, int hp, int maxHp, int damage, int defense, int initiative, int row, int col) {
         this.name = name;
         this.hp = hp;
         this.maxHp = maxHp;
         this.damage = damage;
         this.defense = defense;
         this.initiative = initiative;
-        this.speed = speed;
-        this.position = new Coordinates(x, y);
+        this.position = new Coordinates(row, col);
         this.state = States.READY;
     }
-
 
     public Coordinates getCoordinates() {
         return position;
     }
 
     protected Character findNearest(ArrayList<Character> team) {
-        ArrayList<Character> notDeadCharacters = new ArrayList<>();
+        if (team.size() == 0) return null;
+        Character nearest = team.get(0);
         for (Character character : team) {
-            if (!character.state.equals(States.DEAD)) notDeadCharacters.add(character);
-        }
-        if (notDeadCharacters.size() == 0) return null;
-        Character nearest = notDeadCharacters.get(0);
-        for (Character character : notDeadCharacters) {
-            if (position.getDistance(character.getCoordinates()) < position.getDistance(nearest.getCoordinates())) {
+            if (!character.state.equals(States.DEAD)
+                    && this != character
+                    && position.getDistance(character.getCoordinates()) < position.getDistance(nearest.getCoordinates())) {
                 nearest = character;
             }
         }
         return nearest;
+    }
+    ArrayList<Character> getNotDeadTeamMembers(ArrayList<Character> team) {
+        ArrayList<Character> notDeadTeamMembers = new ArrayList<>();
+        for (Character c: team) {
+            if (!c.isDead()) notDeadTeamMembers.add(c);
+        }
+        return notDeadTeamMembers;
     }
 
     protected void getDamage(int damagePoints) {
@@ -65,7 +67,7 @@ public abstract class Character implements CharacterInterface {
     }
 
     public String getInfo() {
-        return String.format("nm: %s, cl: %s, st: %s, hp: %d/%d, dmg: %d, def: %d, init: %d, sp: %d", this.name.name(), this.toString(), this.state.name(), this.hp, this.maxHp, this.damage, this.defense, this.initiative, this.speed);
+        return String.format("nm: %s, cl: %s, st: %s, hp: %d/%d, dmg: %d, def: %d, init: %d,", this.name.name(), this.toString(), this.state.name(), this.hp, this.maxHp, this.damage, this.defense, this.initiative);
     }
 
     public int getInitiative() {

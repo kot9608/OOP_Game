@@ -7,13 +7,14 @@ public abstract class Caster extends Character implements CharacterInterface {
     int mana;
     int maxMana;
 
-    public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int speed, int mana, int maxMana, int x, int y) {
-        super(name, hp, maxHp, damage, defense, initiative, speed, x, y);
+    public Caster(Names name, int hp, int maxHp, int damage, int defense, int initiative, int mana, int maxMana, int row, int col) {
+        super(name, hp, maxHp, damage, defense, initiative, row, col);
         this.mana = mana;
         this.maxMana = maxMana;
     }
 
     private Character findMostDamaged(ArrayList<Character> team) {
+        if (team.size() == 0) return null;
         Character mostDamaged = team.get(0);
         for (Character character : team) {
             if (!character.state.equals(States.DEAD)
@@ -29,12 +30,17 @@ public abstract class Caster extends Character implements CharacterInterface {
     }
 
     public void step(ArrayList<Character> teamFoe, ArrayList<Character> teamFriend) {
-        if (state.equals(States.DEAD)) return;
-        Character damagedFriend = findMostDamaged(teamFriend);
+        if (this.isDead()) return;
         if (mana < maxMana) mana += 1;
-        if (damagedFriend != null && mana >= damage) {
+        if (mana < damage) {
+            state = States.NOMANA;
+            return;
+        }
+        Character damagedFriend = findMostDamaged(getNotDeadTeamMembers(teamFriend));
+        if (damagedFriend != null) {
             damagedFriend.getHealing(damage);
             mana -= damage;
+            state = States.CAST;
         }
     }
 

@@ -8,4 +8,6 @@ enum States {
     MOVE,
     ATTACK,
     SUPPLY,
+    NOMANA,
+    CAST
 }
